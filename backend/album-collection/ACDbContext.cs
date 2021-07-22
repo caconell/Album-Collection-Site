@@ -565,6 +565,28 @@ namespace album_collection
                     AlbumId = 5
                 }
                 );
+            modelBuilder.Entity<Review>().HasData(
+                new Review()
+				{
+                    Id=1,
+                    UserName="AngusLover73",
+                    Content="Greetings young or old fellow. This here album is top tier. I would highly recommend satisfying your ear holes with these fine tunes.",
+                    PostDate=DateTime.Now,
+                    EditDate=DateTime.Now,
+                    Rating=(int)4.5,
+                    AlbumId=1
+                },
+                new Review()
+				{
+                    Id=2,
+                    UserName="PearlIsMyJam",
+                    Content="OMG I LOVEZ DIS ALEBUMY! XD",
+                    PostDate=DateTime.Now,
+                    EditDate=DateTime.Now,
+                    Rating=(int)5,
+                    AlbumId=3
+                }
+            );
         }
     }
 }
