@@ -7,13 +7,13 @@ export default function Artists(artists)
                 return `
                     <li>${artist.name}</li>
                 `;
-            }).join("")}
+            }).join('')}
         </ol>
 
         <section class="ArtistForm">
             <label>Artist Name: </label>
             <input type="text" id="AddArtist_Name_TextField" placeholder="Type here son."/><br/>
-            `/*
+            `+/*
             <label>Artist Bio: </label>
             <input type="text" id="AddArtist_Bio_TextField" placeholder="Type here son."/><br/>
 
