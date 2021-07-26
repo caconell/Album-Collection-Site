@@ -6,6 +6,12 @@ export default function Artists(artists)
             ${artists.map(artist => {
                 return `
                     <li>${artist.name}</li>
+                    <ul>
+                        <li>Bio: ${artist.biography}</li>
+                        <li>Age: ${artist.age}</li>
+                        <li>Hometown: ${artist.hometown}</li>
+                        <li>Record Label: ${artist.recordLabel}</li>
+                    </ul>
                 `;
             }).join('')}
         </ol>

@@ -5,7 +5,14 @@ export default function Reviews(reviews)
         <ol>
             ${reviews.map(review => {
                 return `
-                    <li>${reviews.name}</li>
+                    <li>${review.userName}</li>
+                    <ul>
+                        <li>Review Text: ${review.content}</li>
+                        <li>Posted Date: ${review.postDate}</li>
+                        `+/*<li>${review.editDate}</li>*/`
+                        <li>Rating: ${review.rating}</li>
+                        <li>Album: ${review.album.name}</li>
+                    </ul>
                 `;
             }).join('')}
         </ol>

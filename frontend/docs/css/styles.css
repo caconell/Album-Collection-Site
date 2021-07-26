@@ -1,0 +1,13 @@
+* {
+    /*background-color:red;*/
+    /*background-color:#DFFFDF;*/
+}
+.title_element
+{
+    font-size:25pt;
+    font-weight:bold;
+}
+.center_text
+{
+    text-align: center;
+}

@@ -6,6 +6,10 @@ export default function Songs(songs)
             ${songs.map(song => {
                 return `
                     <li>${song.name}</li>
+                    <ul>
+                        <li>Duration: ${song.duration}</li>
+                        <li>Link: ${song.link}</li>
+                    </ul>
                 `;
             }).join('')}
         </ol>
