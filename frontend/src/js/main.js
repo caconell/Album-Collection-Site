@@ -1,10 +1,10 @@
-//import Artist from "./components/Artist";
+import Artist from "./components/Artist";
 import Artists from "./components/Artists";
-//import Song from "./components/Song";
+import Song from "./components/Song";
 import Songs from "./components/Songs";
 //import Review from "./components/Review";
 import Reviews from "./components/Reviews";
-//import Album from "./components/Album";
+import Album from "./components/Album";
 import Albums from "./components/Albums";
 
 import Header from "./components/Header";
@@ -23,6 +23,7 @@ export default() => {
     SetupFooter();
 
     SetupNavEventListeners();
+    
 }
 
 function SetupHeader()
@@ -61,9 +62,58 @@ function SetupNavEventListeners()
     AlbumNavButton.addEventListener("click",function(){NavFetch(4);});
 }
 
+function GoToArtistPage() {
+    const artistDetails = document.querySelectorAll(".artist_page");
+    artistDetails.forEach(artist => {
+        artist.addEventListener("click", function () {
+            let artistid = artist.id;
+            let newArtistURL = ArtistsURL + "/" + artistid;
 
+            fetch(newArtistURL).then(response => response.json())
+                .then(data => {
+                    AppDiv.innerHTML = Artist(data);
+                    GoToAlbumPage();
+                });
+        });
 
+    });
 
+}
+
+function GoToAlbumPage() {
+    const albumDetails = document.querySelectorAll(".album_page");
+    albumDetails.forEach(album => {
+        album.addEventListener("click", function () {
+            let albumid = album.id;
+            let newAlbumURL = AlbumsURL + "/" + albumid;
+
+            fetch(newAlbumURL).then(response => response.json())
+                .then(data => {
+                    AppDiv.innerHTML = Album(data);
+                    GoToSongPage();
+                });
+        });
+
+    });
+}
+
+function GoToSongPage() {
+    const songDetails = document.querySelectorAll(".song_page");
+    songDetails.forEach(song => {
+        song.addEventListener("click", function () {
+            let songid = song.id;
+            let newSongURL = SongsURL + "/" + songid;
+
+            fetch(newSongURL).then(response => response.json())
+                .then(data => {
+                    AppDiv.innerHTML = Song(data);
+
+                });
+        });
+
+    });
+
+}
 
 
 
@@ -84,10 +134,16 @@ function NavFetch(ID)
         console.log(Data);
         switch(ID)
         {
-            case 1:AppDiv.innerHTML=Artists(Data);break;
-            case 2:AppDiv.innerHTML=Songs(Data);break;
+            case 1:AppDiv.innerHTML=Artists(Data);
+            GoToArtistPage();break;
+
+            case 2:AppDiv.innerHTML=Songs(Data);
+            GoToSongPage();break;
+
             case 3:AppDiv.innerHTML=Reviews(Data);break;
-            case 4:AppDiv.innerHTML=Albums(Data);break;
+
+            case 4:AppDiv.innerHTML=Albums(Data);
+            GoToAlbumPage();break;
         }
     });
 }
@@ -123,3 +179,11 @@ function NavAlbumsFetch()
         AppDiv.innerHTML=Albums(Data);
     });
 }
+
+
+{/* <ul>
+<li>Bio: ${artist.biography}</li>
+<li>Age: ${artist.age}</li>
+<li>Hometown: ${artist.hometown}</li>
+<li>Record Label: ${artist.recordLabel}</li>
+</ul> */}

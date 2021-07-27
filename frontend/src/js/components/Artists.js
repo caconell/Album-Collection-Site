@@ -5,13 +5,9 @@ export default function Artists(artists)
         <ol>
             ${artists.map(artist => {
                 return `
-                    <li>${artist.name}</li>
-                    <ul>
-                        <li>Bio: ${artist.biography}</li>
-                        <li>Age: ${artist.age}</li>
-                        <li>Hometown: ${artist.hometown}</li>
-                        <li>Record Label: ${artist.recordLabel}</li>
-                    </ul>
+                    <li class="artist_page" id="${artist.id}">
+                    ${artist.name}</li>
+                   
                 `;
             }).join('')}
         </ol>
@@ -33,6 +29,8 @@ export default function Artists(artists)
             <input type="text" id="AddArtist_RecordLabel_TextField" placeholder="Type here son."/><br/>
             */`
             <button id="AddArtistButton">Create an artist</button>
+            <button id="EditArtistButton">Edit an artist</button>
+            <button id="DeleteArtistButton">Delete an artist</button>
         </section>
     `;
 }

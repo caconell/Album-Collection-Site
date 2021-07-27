@@ -5,12 +5,8 @@ export default function Albums(albums)
         <ol>
             ${albums.map(album => {
                 return `
-                    <li>${album.name}</li>
-                    <ol>
-                        ${album.songs.map(song => {
-                            return `<li>${song.name}</li>`;
-                        }).join('')}
-                    </ol>
+                    <li class="album_page" id ="${album.id}">${album.name}</li>
+                  
                 `;
             }).join('')}
         </ol>
