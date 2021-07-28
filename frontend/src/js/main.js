@@ -64,7 +64,7 @@ function SetupNavEventListeners()
 
 
 
-let ToggleAddArtistButton=false;
+let ToggleAddArtistButtonBoolean=false;
 function ToggleAddArtistButton()
 {
     if(ToggleAddArtistButton!==true)
@@ -87,12 +87,12 @@ function ToggleAddArtistButton()
 
             <button id="SubmitNewArtist">Submit new artist</button>
         `;
-        ToggleAddArtistButton=true;
+        ToggleAddArtistButtonBoolean=true;
     }
     else
     {
         CreateArtistDiv.innerHTML=``;
-        ToggleAddArtistButton=false;
+        ToggleAddArtistButtonBoolean=false;
     }
 }
 
