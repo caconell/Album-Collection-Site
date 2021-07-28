@@ -1,6 +1,6 @@
 export default function Album(album)
 {
-    return`
+    return `
 
     <h1>Album Information</h1>
 
@@ -18,9 +18,27 @@ export default function Album(album)
     }).join('')}
     </ul></div>
 
+    <div><strong>Reviews: </strong>
+    
+    <ul>${album.reviews.map(review => {
+        return `
+            <li class="review_page" id="${review.id}">${review.userName}</li>
+            <li>${review.content}</li>
+            <li>${review.postDate}</li>
+            <li>${review.editDate}</li>
+            <li>${review.rating}</li>
+            <li>
+            <button id="EditReviewButton">Edit Review</button>
+            <button id="DeleteReviewButton">Delete Review</button>
+            </li>
+        `;
+    }).join('')}
+    </ul></div>
+
     <section class="AlbumForm">
-            <button id="EditAlbumButton">Edit album</button>
-            <button id="DeleteAlbumButton">Delete album</button>
-        </section>
+        <button id="EditAlbumButton">Edit album</button>
+        <button id="DeleteAlbumButton">Delete album</button><br/>
+        <button id="AddAlbumReviewButton">Create a review</button>
+    </section>
     `;
 }

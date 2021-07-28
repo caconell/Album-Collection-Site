@@ -1,6 +1,6 @@
 export default function Artist(artist)
 {
-    return`
+    return `
 
     <h1>Artist Information</h1>
 

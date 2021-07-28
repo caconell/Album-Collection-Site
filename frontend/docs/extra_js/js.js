@@ -26,3 +26,18 @@ x();
 //SongNavButton.addEventListener("click",x);
 //ReviewNavButton.addEventListener("click",x);
 //AlbumNavButton.addEventListener("click",x);
+
+
+function TrailingZeroes(Number,Digits)
+{
+    let StringToReturn="";
+    let ValueToCheck=1;
+    StringToReturn+=Number;
+    for(let i=1;i<Digits;i++)
+    {
+        ValueToCheck*=10;
+        ValueToCheck=Math.floor(ValueToCheck);
+        if(Number<ValueToCheck)StringToReturn="0"+StringToReturn;
+    }
+    return StringToReturn;
+}

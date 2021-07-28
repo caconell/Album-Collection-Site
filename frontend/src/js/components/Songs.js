@@ -12,8 +12,8 @@ export default function Songs(songs)
         </ol>
 
         <section class="SongForm">
-            <label>Song Name: </label>
-            <input type="text" id="AddSong_Name_TextField" placeholder="Type here son."/><br/>
+            `+/*<label>Song Name: </label>
+            <input type="text" id="AddSong_Name_TextField" placeholder="Type here son."/><br/>*/`
             <button id="AddSongButton">Create a song</button>
         </section>
     `;

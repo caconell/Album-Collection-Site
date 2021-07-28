@@ -13,9 +13,10 @@ export default function Artists(artists)
         </ol>
 
         <section class="ArtistForm">
+            `+/*
             <label>Artist Name: </label>
             <input type="text" id="AddArtist_Name_TextField" placeholder="Type here son."/><br/>
-            `+/*
+
             <label>Artist Bio: </label>
             <input type="text" id="AddArtist_Bio_TextField" placeholder="Type here son."/><br/>
 
@@ -29,8 +30,9 @@ export default function Artists(artists)
             <input type="text" id="AddArtist_RecordLabel_TextField" placeholder="Type here son."/><br/>
             */`
             <button id="AddArtistButton">Create an artist</button>
-            <button id="EditArtistButton">Edit an artist</button>
-            <button id="DeleteArtistButton">Delete an artist</button>
+            <div id="CreateArtistDiv"></div>
         </section>
     `;
 }
+
+

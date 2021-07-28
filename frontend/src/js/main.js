@@ -62,6 +62,40 @@ function SetupNavEventListeners()
     AlbumNavButton.addEventListener("click",function(){NavFetch(4);});
 }
 
+
+
+let ToggleAddArtistButton=false;
+function ToggleAddArtistButton()
+{
+    if(ToggleAddArtistButton!==true)
+    {
+        CreateArtistDiv.innerHTML=`
+            <label>Artist Name: </label>
+            <input type="text" id="AddArtist_Name_TextField" placeholder="Type here son."/><br/>
+
+            <label>Artist Bio: </label>
+            <input type="text" id="AddArtist_Bio_TextField" placeholder="Type here son."/><br/>
+
+            <label>Artist Age: </label>
+            <input type="text" id="AddArtist_Age_TextField" placeholder="Type here son."/><br/>
+
+            <label>Artist Hometown: </label>
+            <input type="text" id="AddArtist_Hometown_TextField" placeholder="Type here son."/><br/>
+
+            <label>Artist Record Label: </label>
+            <input type="text" id="AddArtist_RecordLabel_TextField" placeholder="Type here son."/><br/>
+
+            <button id="SubmitNewArtist">Submit new artist</button>
+        `;
+        ToggleAddArtistButton=true;
+    }
+    else
+    {
+        CreateArtistDiv.innerHTML=``;
+        ToggleAddArtistButton=false;
+    }
+}
+
 function GoToArtistPage() {
     const artistDetails = document.querySelectorAll(".artist_page");
     artistDetails.forEach(artist => {
@@ -78,6 +112,56 @@ function GoToArtistPage() {
 
     });
 
+}
+function SetupAddArtistElements()
+{
+    const SaveArtistButton=document.querySelector("#AddArtistButton");
+    SaveArtistButton.addEventListener("click",function(){ToggleAddArtistButton();});
+    const CreateArtistDiv=document.getElementById("CreateArtistDiv");
+
+    const SubmitNewArtist=document.getElementById("SubmitNewArtist");
+    SubmitNewArtist.addEventListener("click",AddArtist);
+}
+
+
+
+
+
+
+function AddArtist()
+{
+    const SaveArtistButton=document.querySelector("#AddArtistButton");
+    SaveArtistButton.addEventListener("click",function(){
+        
+        let NewArtistName=document.getElementById("CreateArtist_TextField_Name").value;
+        let NewArtistBio=document.getElementById("CreateArtist_TextField_Bio").value;
+
+        let NewArtistAge=document.getElementById("CreateArtist_TextField_Age").value;
+        let NewArtistHometown=document.getElementById("CreateArtist_TextField_Hometown").value;
+        let NewArtistRecordLabel=document.getElementById("CreateArtist_TextField_RecordLabel").value;
+
+        const RequestBody={
+            Name:NewArtistName,
+            Image:"",
+            Biography:NewArtistBio,
+
+            Age:NewArtistAge,
+            Hometown:NewArtistHometown,
+            RecordLabel:NewArtistRecordLabel
+        };
+        
+        fetch(ArtistsURL,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(RequestBody)
+        }).then(response => response.json())
+        .then(data => {
+            AppDiv.innerHTML=Artist(data);
+        });
+        
+    });
 }
 
 function GoToAlbumPage() {
@@ -134,16 +218,25 @@ function NavFetch(ID)
         console.log(Data);
         switch(ID)
         {
-            case 1:AppDiv.innerHTML=Artists(Data);
-            GoToArtistPage();break;
+            case 1:
+                AppDiv.innerHTML=Artists(Data);
+                GoToArtistPage();
+                SetupAddArtistElements();
+            break;
 
-            case 2:AppDiv.innerHTML=Songs(Data);
-            GoToSongPage();break;
+            case 2:
+                AppDiv.innerHTML=Songs(Data);
+                GoToSongPage();
+            break;
 
-            case 3:AppDiv.innerHTML=Reviews(Data);break;
+            case 3:
+                AppDiv.innerHTML=Reviews(Data);
+            break;
 
-            case 4:AppDiv.innerHTML=Albums(Data);
-            GoToAlbumPage();break;
+            case 4:
+                AppDiv.innerHTML=Albums(Data);
+                GoToAlbumPage();
+            break;
         }
     });
 }

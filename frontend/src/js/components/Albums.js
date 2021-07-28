@@ -12,8 +12,8 @@ export default function Albums(albums)
         </ol>
 
         <section class="AlbumForm">
-            <label>Album Name: </label>
-            <input type="text" id="AddAlbum_Name_TextField" placeholder="Type here son."/><br/>
+            `+/*<label>Album Name: </label>
+            <input type="text" id="AddAlbum_Name_TextField" placeholder="Type here son."/><br/>*/`
             <button id="AddAlbumButton">Create an album</button>
         </section>
     `;
