@@ -1,5 +1,9 @@
 export default function Artist(artist)
 {
+    if(artist.albums == null){
+        artist.albums = [];
+    }
+
     return `
 
     <h1>Artist Information</h1>
@@ -23,5 +27,6 @@ export default function Artist(artist)
             <button id="EditArtistButton">Edit artist</button>
             <button id="DeleteArtistButton">Delete artist</button>
         </section>
+        <div id="EditArtistDiv"></div>
     `;
 }

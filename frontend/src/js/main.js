@@ -13,7 +13,7 @@ import Footer from "./components/Footer";
 const AppDiv=document.getElementById("app");
 
 //const HeaderURL="https://localhost:44313/api/todo";
-const ArtistsURL="https://localhost:44313/api/artists";
+const ArtistsURL="https://localhost:44313/api/artists/";
 const SongsURL="https://localhost:44313/api/songs";
 const ReviewsURL="https://localhost:44313/api/reviews";
 const AlbumsURL="https://localhost:44313/api/albums";
@@ -71,23 +71,26 @@ function ToggleAddArtistButton()
     {
         CreateArtistDiv.innerHTML=`
             <label>Artist Name: </label>
-            <input type="text" id="AddArtist_Name_TextField" placeholder="Type here son."/><br/>
+            <input type="text" id="CreateArtist_TextField_Name" placeholder="Type here son."/><br/>
 
             <label>Artist Bio: </label>
-            <input type="text" id="AddArtist_Bio_TextField" placeholder="Type here son."/><br/>
+            <input type="text" id="CreateArtist_TextField_Bio" placeholder="Type here son."/><br/>
 
             <label>Artist Age: </label>
-            <input type="text" id="AddArtist_Age_TextField" placeholder="Type here son."/><br/>
+            <input type="text" id="CreateArtist_TextField_Age" placeholder="Type here son."/><br/>
 
             <label>Artist Hometown: </label>
-            <input type="text" id="AddArtist_Hometown_TextField" placeholder="Type here son."/><br/>
+            <input type="text" id="CreateArtist_TextField_Hometown" placeholder="Type here son."/><br/>
 
             <label>Artist Record Label: </label>
-            <input type="text" id="AddArtist_RecordLabel_TextField" placeholder="Type here son."/><br/>
+            <input type="text" id="CreateArtist_TextField_RecordLabel" placeholder="Type here son."/><br/>
 
             <button id="SubmitNewArtist">Submit new artist</button>
         `;
         ToggleAddArtistButtonBoolean=true;
+
+        const SubmitNewArtist=document.getElementById("SubmitNewArtist");
+        SubmitNewArtist.addEventListener("click",AddArtist);
     }
     else
     {
@@ -96,17 +99,57 @@ function ToggleAddArtistButton()
     }
 }
 
+
+let ToggleEditArtistButtonBoolean=false;
+function ToggleEditArtistButton(artist)
+{
+    if(ToggleEditArtistButton!==true)
+    {
+        EditArtistDiv.innerHTML=`
+
+            <input type="hidden" id="EditArtist_Hidden_Id" value="${artist.id}"/><br/>
+            <label>Artist Name: </label>
+            <input type="text" id="EditArtist_TextField_Name" value="${artist.name}"/><br/>
+
+            <label>Artist Bio: </label>
+            <input type="text" id="EditArtist_TextField_Bio" value="${artist.biography}"/><br/>
+
+            <label>Artist Age: </label>
+            <input type="text" id="EditArtist_TextField_Age" value="${artist.age}"/><br/>
+
+            <label>Artist Hometown: </label>
+            <input type="text" id="EditArtist_TextField_Hometown" value="${artist.hometown}"/><br/>
+
+            <label>Artist Record Label: </label>
+            <input type="text" id="EditArtist_TextField_RecordLabel" value="${artist.recordLabel}"/><br/>
+
+            <button id="SubmitEditArtist">Update artist</button>
+        `;
+        ToggleEditArtistButtonBoolean=true;
+
+        const SubmitEditArtist=document.getElementById("SubmitEditArtist");
+        SubmitEditArtist.addEventListener("click",UpdateArtist);
+    }
+    else
+    {
+        EditArtistDiv.innerHTML=``;
+        ToggleEditArtistButtonBoolean=false;
+    }
+}
+
+
 function GoToArtistPage() {
     const artistDetails = document.querySelectorAll(".artist_page");
     artistDetails.forEach(artist => {
         artist.addEventListener("click", function () {
             let artistid = artist.id;
-            let newArtistURL = ArtistsURL + "/" + artistid;
+            let newArtistURL = ArtistsURL + artistid;
 
             fetch(newArtistURL).then(response => response.json())
                 .then(data => {
                     AppDiv.innerHTML = Artist(data);
                     GoToAlbumPage();
+                    SetupEditArtistElements(data);
                 });
         });
 
@@ -119,20 +162,12 @@ function SetupAddArtistElements()
     SaveArtistButton.addEventListener("click",function(){ToggleAddArtistButton();});
     const CreateArtistDiv=document.getElementById("CreateArtistDiv");
 
-    const SubmitNewArtist=document.getElementById("SubmitNewArtist");
-    SubmitNewArtist.addEventListener("click",AddArtist);
+
 }
-
-
-
-
-
 
 function AddArtist()
 {
-    const SaveArtistButton=document.querySelector("#AddArtistButton");
-    SaveArtistButton.addEventListener("click",function(){
-        
+    
         let NewArtistName=document.getElementById("CreateArtist_TextField_Name").value;
         let NewArtistBio=document.getElementById("CreateArtist_TextField_Bio").value;
 
@@ -160,9 +195,65 @@ function AddArtist()
         .then(data => {
             AppDiv.innerHTML=Artist(data);
         });
-        
-    });
+    
 }
+
+
+
+
+
+
+
+function SetupEditArtistElements(artist)
+{
+    const EditArtistButton=document.querySelector("#EditArtistButton");
+    EditArtistButton.addEventListener("click",function(){ToggleEditArtistButton(artist);});
+    const EditArtistDiv=document.getElementById("EditArtistDiv");
+
+
+}
+
+
+function UpdateArtist()
+{
+    
+    let EditArtistId=document.getElementById("EditArtist_Hidden_Id").value;
+    let EditArtistName=document.getElementById("EditArtist_TextField_Name").value;
+        let EditArtistBio=document.getElementById("EditArtist_TextField_Bio").value;
+
+        let EditArtistAge=document.getElementById("EditArtist_TextField_Age").value;
+        let EditArtistHometown=document.getElementById("EditArtist_TextField_Hometown").value;
+        let EditArtistRecordLabel=document.getElementById("EditArtist_TextField_RecordLabel").value;
+
+        const RequestBody={
+            Id:EditArtistId,
+            Name:EditArtistName,
+            Image:"",
+            Biography:EditArtistBio,
+
+            Age:EditArtistAge,
+            Hometown:EditArtistHometown,
+            RecordLabel:EditArtistRecordLabel
+        };
+
+        fetch(ArtistsURL + EditArtistId,{
+            method:"PUT",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(RequestBody)
+        }).then(response => response.text())
+        .then(data => {
+            fetch(ArtistsURL + EditArtistId)
+            .then(response => response.json())
+            .then(data => {
+                AppDiv.innerHTML=Artist(data);
+            });
+        });
+    
+}
+
+
 
 function GoToAlbumPage() {
     const albumDetails = document.querySelectorAll(".album_page");
