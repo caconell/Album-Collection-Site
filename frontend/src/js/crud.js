@@ -129,8 +129,8 @@ export function UpdateSong()
     let UpdateSongId=document.getElementById("UpdateSong_Hidden_Id").value;
 
     let UpdateSongName=document.getElementById("UpdateSong_TextField_Name").value;
-    let UpdateSongAlbum=document.getElementById("UpdateSong_TextField_Album").value;
-    let UpdateSongArtist=document.getElementById("UpdateSong_TextField_Artist").value;
+    let UpdateSongAlbum=document.getElementById("UpdateSong_DropDown_Album").value;
+    //let UpdateSongArtist=document.getElementById("UpdateSong_TextField_Artist").value;
     let UpdateSongDuration=document.getElementById("UpdateSong_TextField_Duration").value;
     let UpdateSongLink=document.getElementById("UpdateSong_TextField_Link").value;
 
@@ -138,13 +138,14 @@ export function UpdateSong()
         Id:UpdateSongId,
         Name:UpdateSongName,
         AlbumId:UpdateSongAlbum,
-        Artist:UpdateSongArtist,
+     //   Artist:UpdateSongArtist,
         Duration:UpdateSongDuration,
         Link:UpdateSongLink
     };
-
+console.log(UpdateSongId);
     FETCH.Update(URL.SongsURL + UpdateSongId,RequestBody).then(data => {
-        FETCH.Generic(URL.SongsURL + data.id).then(data => {
+        console.log(data);
+        FETCH.Generic(URL.SongsURL + UpdateSongId).then(data => {
             DisplayDiv.innerHTML=DisplaySingleSong(data);
             SetupSongPage(data);
         });

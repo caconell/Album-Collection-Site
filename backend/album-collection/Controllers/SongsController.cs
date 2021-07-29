@@ -45,7 +45,7 @@ namespace album_collection.Controllers
         // PUT: api/Songs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSong(int id, Song song)
+        public async Task<IActionResult> PutSong(int id, [FromBody] Song song)
         {
             if (id != song.Id)
             {

@@ -319,7 +319,7 @@ export function UpdateSongToggle(song)
         fetch(AlbumsURL).then(response => response.json()).then(data => {
 
         UDSongDiv.innerHTML = `
-        <input type = "hidden" value="${song.id}" />
+        <input type = "hidden" id="UpdateSong_Hidden_Id" value="${song.id}" />
         <label>Song Name: </label>
         <input type="text" id="UpdateSong_TextField_Name" value="${song.name}"/><br/>
     
