@@ -103,22 +103,25 @@ export function DeleteArtist()
 export function CreateSong()
 {
     let CreateSongName=document.getElementById("CreateSong_TextField_Name").value;
-    //let CreateSongAlbum=document.getElementById("CreateSong_TextField_Album").value;
+    let CreateSongAlbum=document.getElementById("CreateSong_DropDown_Album").value;
     ////let CreateSongArtist=document.getElementById("CreateSong_TextField_Artist").value;
     let CreateSongDuration=document.getElementById("CreateSong_TextField_Duration").value;
     let CreateSongLink=document.getElementById("CreateSong_TextField_Link").value;
 
     const RequestBody={
         Name:CreateSongName,
-        //Album:CreateSongAlbum,
+        AlbumId:CreateSongAlbum,
         ////Artist:CreateSongArtist,
         Duration:CreateSongDuration,
         Link:CreateSongLink
     };
     
     FETCH.Create(URL.SongsURL,RequestBody).then(data => {
-        DisplayDiv.innerHTML=DisplaySingleSong(data);
-        SetupSongPage(data);
+        FETCH.Generic(URL.SongsURL + data.id).then(data => {
+            DisplayDiv.innerHTML=DisplaySingleSong(data);
+            SetupSongPage(data);
+        });
+        
     });
 }
 export function UpdateSong()
@@ -134,14 +137,14 @@ export function UpdateSong()
     const RequestBody={
         Id:UpdateSongId,
         Name:UpdateSongName,
-        Album:UpdateSongAlbum,
+        AlbumId:UpdateSongAlbum,
         Artist:UpdateSongArtist,
         Duration:UpdateSongDuration,
         Link:UpdateSongLink
     };
 
     FETCH.Update(URL.SongsURL + UpdateSongId,RequestBody).then(data => {
-        FETCH.Generic(URL.SongsURL + UpdateSongId).then(data => {
+        FETCH.Generic(URL.SongsURL + data.id).then(data => {
             DisplayDiv.innerHTML=DisplaySingleSong(data);
             SetupSongPage(data);
         });

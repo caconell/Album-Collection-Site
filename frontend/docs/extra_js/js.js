@@ -43,22 +43,22 @@ function TrailingZeroes(Number,Digits)
 }
 
 
-let NumPearls=0;
-const PearlCount=document.getElementById("Pearl");
+// let NumPearls=0;
+// const PearlCount=document.getElementById("Pearl");
 
 
-const PrayForPearl=document.getElementById("Pray");
-let PearlIndex=0;
-function Pray()
-{
-    PearlIndex++;
-    PrayForPearl.innerText+="Pearl is great.\u0000";
+// const PrayForPearl=document.getElementById("Pray");
+// let PearlIndex=0;
+// function Pray()
+// {
+//     PearlIndex++;
+//     PrayForPearl.innerText+="Pearl is great.\u0000";
     
-    NumPearls++;
-    PearlCount.innerText=NumPearls;
+//     NumPearls++;
+//     PearlCount.innerText=NumPearls;
 
-    if(PearlIndex==20)
-        PearlIndex=0;
-}
-setInterval(Pray,1);
-Pray();
+//     if(PearlIndex==20)
+//         PearlIndex=0;
+// }
+// setInterval(Pray,1);
+// Pray();

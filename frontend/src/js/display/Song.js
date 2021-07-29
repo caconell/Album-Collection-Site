@@ -21,6 +21,9 @@ export function DisplaySongList(songs)
 }
 export function DisplaySingleSong(song)
 {
+    if(song.albums == null){
+        song.albums = [];
+    }
     return `
 
     <h1>Song Information</h1>

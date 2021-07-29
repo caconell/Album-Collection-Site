@@ -2,6 +2,7 @@ import {ToggleButton} from "./var/toggle";
 
 import {CreateArtist,UpdateArtist,DeleteArtist} from "./crud";
 import {CreateSong,UpdateSong,DeleteSong} from "./crud";
+import {AlbumsURL} from "./var/url";
 
 /*
 function call()
@@ -260,15 +261,22 @@ export function CreateSongToggle()
 {
     if(ToggleButton[0][1]!==true)
     {
+        fetch(AlbumsURL).then(response => response.json()).then(data => {
+
+      
+
         CreateSongDiv.innerHTML=`
             <label>Song Name: </label>
             <input type="text" id="CreateSong_TextField_Name" placeholder="Type here son."/><br/>
 
             <label>Song Album: </label>
-            <select>
-                <option>Each album name goes here</option>
-                <option>Each album name goes here</option>
-                <option>Each album name goes here</option>
+            <select id="CreateSong_DropDown_Album">
+            ${data.map(album => {
+                return `
+                    <option value ="${album.id}">${album.name}</option>
+                  
+                `;
+            }).join('')}
             </select><br/>
 
             <label>Song Duration: </label>
@@ -279,7 +287,10 @@ export function CreateSongToggle()
 
             <button id="CreateSong_Button_Submit">Create song</button>
         `;
-        ToggleButton[0][1]=true;
+        const CreateSongSubmitButton=document.getElementById("CreateSong_Button_Submit");
+        CreateSongSubmitButton.addEventListener("click", CreateSong);
+    });
+    ToggleButton[0][1]=true;
     }
     else
     {
@@ -298,31 +309,51 @@ export function CreateSongToggle()
     ]);
     */
 
-    if(ToggleButton[0][1]===true)
-    {
-        const CreateSongSubmitButton=document.getElementById("CreateSong_Button_Submit");
-        CreateSongSubmitButton.addEventListener("click",CreateSong);
-    }
 }
 export function UpdateSongToggle(song)
 {
     ToggleButton[2][1]=false;
-    ToggleButton[1][1]=Refactored(ToggleButton[1][1],UDSongDiv,[
-        //Element type, include label, crud operation, thing it's for, Attribute / action, extra tag text, extra tag attribute name.
-        [3,false,"Update","Song","Id",song.id,"value"],
-        [1,true,"Update","Song","Name",song.name,"value"],
-        [1,true,"Update","Song","Album",song.album.name,"value"],
-        [1,true,"Update","Song","Artist",song.album.artist.name,"value"],
-        [1,true,"Update","Song","Duration",Math.floor( (song.duration/3600) )+":"+TrailingZeroes(Math.floor( ((song.duration/60)%60) ),2)+":"+TrailingZeroes(Math.floor( ((song.duration/1)%60) ),2),"value"],
-        [1,true,"Update","Song","Link",song.link,"value"],
-        [2,false,"Update","Song","Submit","Update song"]
-    ]);
 
-    if(ToggleButton[1][1]===true)
-    {
+    if (ToggleButton[1][1] !== true) {
+
+        fetch(AlbumsURL).then(response => response.json()).then(data => {
+
+        UDSongDiv.innerHTML = `
+        <input type = "hidden" value="${song.id}" />
+        <label>Song Name: </label>
+        <input type="text" id="UpdateSong_TextField_Name" value="${song.name}"/><br/>
+    
+        <label>Song Album: </label>
+        <select id="UpdateSong_DropDown_Album">
+     ${data.map(album => {
+            return `
+            <option value ="${album.id}">${album.name}</option>
+          
+        `;
+        }).join('')}
+        </select><br/>
+    
+        <label>Song Duration: </label>
+        <input type="text" id="UpdateSong_TextField_Duration" value="${song.duration}"/><br/>
+    
+        <label>Song Link: </label>
+        <input type="text" id="UpdateSong_TextField_Link" value="${song.link}"/><br/>
+    
+        <button id="UpdateSong_Button_Submit">Update song</button>
+    `;
         const UpdateSongSubmitButton=document.getElementById("UpdateSong_Button_Submit");
         UpdateSongSubmitButton.addEventListener("click",UpdateSong);
+        });
     }
+
+    else
+    {
+        UDSongDiv.innerHTML=``;
+        ToggleButton[1][1]=false;
+    }
+
+
+   
 }
 export function DeleteSongToggle(song)
 {
