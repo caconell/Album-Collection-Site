@@ -1,4 +1,24 @@
-export default function Album(album)
+export function DisplayAlbumList(albums)
+{
+    return `
+        <h1>Albums list</h1>
+        <ol>
+            ${albums.map(album => {
+                return `
+                    <li class="album_page" id ="${album.id}">${album.name}</li>
+                  
+                `;
+            }).join('')}
+        </ol>
+
+        <section class="AlbumForm">
+            `+/*<label>Album Name: </label>
+            <input type="text" id="AddAlbum_Name_TextField" placeholder="Type here son."/><br/>*/`
+            <button id="CreateAlbumButton">Create an album</button>
+        </section>
+    `;
+}
+export function DisplaySingleAlbum(album)
 {
     return `
 
@@ -28,7 +48,7 @@ export default function Album(album)
             <li>${review.editDate}</li>
             <li>${review.rating}</li>
             <li>
-            <button id="EditReviewButton">Edit Review</button>
+            <button id="UpdateReviewButton">Edit Review</button>
             <button id="DeleteReviewButton">Delete Review</button>
             </li>
         `;
@@ -36,9 +56,11 @@ export default function Album(album)
     </ul></div>
 
     <section class="AlbumForm">
-        <button id="EditAlbumButton">Edit album</button>
+        <button id="UpdateAlbumButton">Edit album</button>
         <button id="DeleteAlbumButton">Delete album</button><br/>
-        <button id="AddAlbumReviewButton">Create a review</button>
+        <button id="CreateReviewButton">Create a review</button>
     </section>
+
+    <div id="UDAlbumDiv"></div>
     `;
 }

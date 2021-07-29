@@ -1,0 +1,1 @@
+export const DisplayDiv=document.getElementById("Display");

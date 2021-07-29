@@ -11,3 +11,39 @@
 {
     text-align: center;
 }
+li
+{
+    list-style-type:none;
+    list-style-type: armenian;
+    /*list-style-type:symbols('a','b','c');*/
+    list-style-position: inside;
+    list-style: square;
+    list-style-type: square;
+
+    font-family:monospace;
+    font-size:12pt;
+    /*font-variant: small-caps;*/
+    font-stretch:narrower;
+    font-synthesis: style;
+    font-size-adjust: unset;
+    font-variant-east-asian: ruby;
+    font-optical-sizing: 0pt;
+    -webkit-font-feature-settings: "liga";
+    -webkit-transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+    font-variant-ligatures: historical-ligatures;
+    font-language-override: inherit;
+    font-variant-caps: titling-caps;
+    font-variant-position: super;
+    font-kerning: auto;
+
+}
+body
+{
+    background:linear-gradient(rgba(255,0,0,.25),rgba(255,128,0,.25),rgba(255,255,0,.25),rgba(0,255,0,.25),rgba(0,0,255,.25),rgba(255,0,255,.25));
+}
+*{
+    color:black;
+    text-shadow:"1px 1px", "16" , rgba(0,0,255,255);
+
+    text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
+}
