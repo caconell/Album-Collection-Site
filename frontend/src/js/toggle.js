@@ -2,7 +2,10 @@ import {ToggleButton} from "./var/toggle";
 
 import {CreateArtist,UpdateArtist,DeleteArtist} from "./crud";
 import {CreateSong,UpdateSong,DeleteSong} from "./crud";
-import {CreateAlbum} from "./crud";
+import {CreateAlbum,UpdateAlbum,DeleteAlbum} from "./crud";
+
+import {CreateReview,UpdateReview,DeleteReview} from "./crud";
+
 import {AlbumsURL,ArtistsURL} from "./var/url";
 
 /*
@@ -133,38 +136,6 @@ export function CreateArtistToggle()
         const CreateArtistSubmitButton=document.getElementById("CreateArtist_Button_Submit");
         CreateArtistSubmitButton.addEventListener("click",CreateArtist);
     }
-    /*
-    if(ToggleAddArtistButtonBoolean!==true)
-    {
-        CreateArtistDiv.innerHTML=`
-            <label>Artist Name: </label>
-            <input type="text" id="CreateArtist_TextField_Name" placeholder="Type here son."/><br/>
-
-            <label>Artist Bio: </label>
-            <input type="text" id="CreateArtist_TextField_Bio" placeholder="Type here son."/><br/>
-
-            <label>Artist Age: </label>
-            <input type="text" id="CreateArtist_TextField_Age" placeholder="Type here son."/><br/>
-
-            <label>Artist Hometown: </label>
-            <input type="text" id="CreateArtist_TextField_Hometown" placeholder="Type here son."/><br/>
-
-            <label>Artist Record Label: </label>
-            <input type="text" id="CreateArtist_TextField_RecordLabel" placeholder="Type here son."/><br/>
-
-            <button id="SubmitNewArtist">Submit new artist</button>
-        `;
-        ToggleAddArtistButtonBoolean=true;
-
-        const SubmitNewArtist=document.getElementById("SubmitNewArtist");
-        SubmitNewArtist.addEventListener("click",AddArtist);
-    }
-    else
-    {
-        CreateArtistDiv.innerHTML=``;
-        ToggleAddArtistButtonBoolean=false;
-    }
-    */
 }
 export function UpdateArtistToggle(artist)
 {
@@ -185,41 +156,6 @@ export function UpdateArtistToggle(artist)
         const UpdateArtistSubmitButton=document.getElementById("UpdateArtist_Button_Submit");
         UpdateArtistSubmitButton.addEventListener("click",UpdateArtist);
     }
-    
-    /*
-    if(ToggleEditArtistButton!==true)
-    {
-        UDArtistDiv.innerHTML=`
-
-            <input type="hidden" id="EditArtist_Hidden_Id" value="${artist.id}"/><br/>
-            <label>Artist Name: </label>
-            <input type="text" id="EditArtist_TextField_Name" value="${artist.name}"/><br/>
-
-            <label>Artist Bio: </label>
-            <input type="text" id="EditArtist_TextField_Bio" value="${artist.biography}"/><br/>
-
-            <label>Artist Age: </label>
-            <input type="text" id="EditArtist_TextField_Age" value="${artist.age}"/><br/>
-
-            <label>Artist Hometown: </label>
-            <input type="text" id="EditArtist_TextField_Hometown" value="${artist.hometown}"/><br/>
-
-            <label>Artist Record Label: </label>
-            <input type="text" id="EditArtist_TextField_RecordLabel" value="${artist.recordLabel}"/><br/>
-
-            <button id="SubmitEditArtist">Update artist</button>
-        `;
-        ToggleEditArtistButtonBoolean=true;
-
-        const SubmitEditArtist=document.getElementById("SubmitEditArtist");
-        SubmitEditArtist.addEventListener("click",UpdateArtist);
-    }
-    else
-    {
-        UDArtistDiv.innerHTML=``;
-        ToggleEditArtistButtonBoolean=false;
-    }
-    */
 }
 export function DeleteArtistToggle(artist)
 {
@@ -235,25 +171,6 @@ export function DeleteArtistToggle(artist)
         const DeleteArtistSubmitButton=document.getElementById("DeleteArtist_Button_Submit");
         DeleteArtistSubmitButton.addEventListener("click",DeleteArtist);
     }
-    
-    /*
-    if(ToggleDeleteArtistButtonBoolean!==true)
-    {
-        UDArtistDiv.innerHTML=`
-            <input type="hidden" id="DeleteArtist_Hidden_Id" value="${artist.id}"/><br/>
-            <button id="SubmitDeleteArtist">Confirm the deletion of its existance</button>
-        `;
-        ToggleDeleteArtistButtonBoolean=true;
-
-        const SubmitDeleteArtist=document.getElementById("SubmitDeleteArtist");
-        SubmitDeleteArtist.addEventListener("click",DeleteArtist);
-    }
-    else
-    {
-        UDArtistDiv.innerHTML=``;
-        ToggleDeleteArtistButtonBoolean=false;
-    }
-    */
 }
 
 
@@ -298,18 +215,6 @@ export function CreateSongToggle()
         CreateSongDiv.innerHTML=``;
         ToggleButton[0][1]=false;
     }
-
-    /*
-    ToggleButton[0][1]=Refactored(ToggleButton[0][1],CreateSongDiv,[
-        //Element type, include label, crud operation, thing it's for, Attribute / action, extra tag text, extra tag attribute name.
-        [1,true,"Create","Song","Name","Type here son.","placeholder"],
-        //[4,true,"Create","Song","Album",song.album.name,"value"],
-        [1,true,"Create","Song","Duration","Type here son.","placeholder"],
-        [1,true,"Create","Song","Link","Type here son.","placeholder"],
-        [2,false,"Create","Song","Submit","Create song"]
-    ]);
-    */
-
 }
 export function UpdateSongToggle(song)
 {
@@ -352,9 +257,6 @@ export function UpdateSongToggle(song)
         UDSongDiv.innerHTML=``;
         ToggleButton[1][1]=false;
     }
-
-
-   
 }
 export function DeleteSongToggle(song)
 {
@@ -371,22 +273,6 @@ export function DeleteSongToggle(song)
         DeleteSongSubmitButton.addEventListener("click",DeleteSong);
     }
 }
-
-
-
-export function CreateReviewToggle()
-{
-    
-}
-export function UpdateReviewToggle(review)
-{
-    
-}
-export function DeleteReviewToggle(review)
-{
-    
-}
-
 
 
 export function CreateAlbumToggle()
@@ -468,8 +354,131 @@ export function UpdateAlbumToggle(album)
 }
 export function DeleteAlbumToggle(album)
 {
+    ToggleButton[2][3]=false;
     
+    if (ToggleButton[2][3] !== true) {
+
+        fetch(ArtistsURL).then(response => response.json()).then(data => {
+
+        UDAlbumDiv.innerHTML = `
+        <input type = "hidden" id="DeleteAlbum_Hidden_Id" value="${album.id}" />
+
+        <button id="DeleteAlbum_Button_Submit">Delete album</button>
+    `;
+        const DeleteAlbumSubmitButton=document.getElementById("DeleteAlbum_Button_Submit");
+        DeleteAlbumSubmitButton.addEventListener("click",DeleteAlbum);
+        });
+    }
+
+    else
+    {
+        UDAlbumDiv.innerHTML=``;
+        ToggleButton[2][3]=false;
+    }
 }
 
 
+export function CreateReviewToggle()
+{
+    if(ToggleButton[0][3]!==true)
+    {
+        fetch(AlbumsURL).then(response => response.json()).then(data => {
+
+      
+
+        CreateReviewDiv.innerHTML=`
+            <label>Review UserName: </label>
+            <input type="text" id="CreateReview_TextField_UserName" placeholder="Type here son."/><br/>
+            <label>Review Content: </label>
+            <input type="text" id="CreateReview_TextField_Content" placeholder="Type here son."/><br/>
+            <label>Review Rating: </label>
+            <input type="text" id="CreateReview_TextField_Rating" placeholder="Type here son."/><br/>
+
+
+            <label>Review Album: </label>
+            <select id="CreateReview_DropDown_Album">
+            ${data.map(album => {
+                return `
+                    <option value ="${album.id}">${album.name}</option>
+                `;
+            }).join('')}
+            </select><br/>
+
+            <button id="CreateReview_Button_Submit">Create Review</button>
+        `;
+        const CreateReviewSubmitButton=document.getElementById("CreateReview_Button_Submit");
+        CreateReviewSubmitButton.addEventListener("click", CreateReview);
+    });
+    ToggleButton[0][1]=true;
+    }
+    else
+    {
+        CreateAlbumDiv.innerHTML=``;
+        ToggleButton[0][3]=false;
+    }
+}
+export function UpdateReviewToggle(review)
+{
+    ToggleButton[1][3]=false;
+
+    if (ToggleButton[1][3] !== true) {
+
+        fetch(AlbumsURL).then(response => response.json()).then(data => {
+
+        UDReviewDiv.innerHTML = `
+        <input type = "hidden" id="UpdateReview_Hidden_Id" value="${review.id}" />
+        <label>Review Name: </label>
+        <input type="text" id="UpdateReview_TextField_UserName" value="${review.userName}"/><br/>
+        <label>Review Content: </label>
+        <input type="text" id="UpdateReview_TextField_Content" value="${review.content}"/><br/>
+        <label>Review Rating: </label>
+        <input type="text" id="UpdateReview_TextField_Rating" value="${review.rating}"/><br/>
+    
+        <label>Review Album: </label>
+        <select id="UpdateReview_DropDown_Album">
+        ${data.map(album => {
+            return `
+            <option value ="${album.id}">${album.name}</option>
+          
+        `;
+        }).join('')}
+        </select><br/>
+    
+        <button id="UpdateReview_Button_Submit">Update review</button>
+    `;
+        const UpdateReviewSubmitButton=document.getElementById("UpdateReview_Button_Submit");
+        UpdateReviewSubmitButton.addEventListener("click",UpdateReview);
+        });
+    }
+
+    else
+    {
+        UDReviewDiv.innerHTML=``;
+        ToggleButton[1][3]=false;
+    }
+}
+export function DeleteReviewToggle(album)
+{
+    ToggleButton[2][3]=false;
+    
+    if (ToggleButton[2][3] !== true) {
+
+        fetch(ArtistsURL).then(response => response.json()).then(data => {
+
+        UDReviewDiv.innerHTML = `
+        <input type = "hidden" id="DeleteReview_Hidden_Id" value="${album.id}" />
+
+        <button id="DeleteReview_Button_Submit">Delete review</button>
+    `;
+        const DeleteReviewSubmitButton=document.getElementById("DeleteReview_Button_Submit");
+        DeleteReviewSubmitButton.addEventListener("click",DeleteReview);
+        });
+    }
+
+    else
+    {
+        UDReviewDiv.innerHTML=``;
+        ToggleButton[2][3]=false;
+    }
+}
 

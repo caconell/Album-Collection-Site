@@ -85,12 +85,20 @@ export function SetupReviewsPage()
     //reset variable to false everytime.
     ToggleButton[0][2]=false;
 
-
+    const ReviewElement = document.querySelectorAll(".review_page");
+    ReviewElement.forEach(review => {
+        review.addEventListener("click",function() {
+            ElementEventListener(review,URL.ReviewsURL).then(data => {
+                DisplayDiv.innerHTML = DisplaySingleReview(data);
+                SetupReviewPage(data);
+            });
+        });
+    });
 
     //const CreateReviewButton=document.querySelector("#CreateReviewButton");
     //CreateReviewButton.addEventListener("click",CreateReviewToggle);
 }
-function SetupReviewPage(review_data)
+export function SetupReviewPage(review_data)
 {
     //reset variable to false everytime.
     ToggleButton[1][2]=false;
@@ -113,7 +121,7 @@ export function SetupAlbumsPage()
         album.addEventListener("click",function() {
             ElementEventListener(album,URL.AlbumsURL).then(data => {
                 DisplayDiv.innerHTML = DisplaySingleAlbum(data);
-                SetupAlbumPage();
+                SetupAlbumPage(data);
             });
         });
     });
@@ -132,4 +140,9 @@ export function SetupAlbumPage(album_data)
 
     const DeleteAlbumButton=document.querySelector("#DeleteAlbumButton");
     DeleteAlbumButton.addEventListener("click",function(){DeleteAlbumToggle(album_data);});
+
+    const CreateReviewButton=document.querySelector("#CreateReviewButton");
+    CreateReviewButton.addEventListener("click",function(){CreateReviewToggle(album_data);});
+
+    
 }

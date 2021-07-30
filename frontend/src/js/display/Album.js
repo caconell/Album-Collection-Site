@@ -48,10 +48,7 @@ export function DisplaySingleAlbum(album)
             <li>${review.postDate}</li>
             <li>${review.editDate}</li>
             <li>${review.rating}</li>
-            <li>
-            <button id="UpdateReviewButton">Edit Review</button>
-            <button id="DeleteReviewButton">Delete Review</button>
-            </li>
+            <br/>
         `;
     }).join('')}
     </ul></div>
@@ -60,6 +57,7 @@ export function DisplaySingleAlbum(album)
         <button id="UpdateAlbumButton">Edit album</button>
         <button id="DeleteAlbumButton">Delete album</button><br/>
         <button id="CreateReviewButton">Create a review</button>
+        <div id="CreateReviewDiv"></div>
     </section>
 
     <div id="UDAlbumDiv"></div>

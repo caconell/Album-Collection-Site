@@ -2,10 +2,11 @@ export function DisplayReviewList(reviews)
 {
     return `
         <h1>Reviews list</h1>
+
         <ol>
             ${reviews.map(review => {
                 return `
-                    <li>${review.userName}</li>
+                    <li class="review_page" id="${review.id}">${review.userName}</li>
                     <ul>
                         <li>Review Text: ${review.content}</li>
                         <li>Posted Date: ${review.postDate}</li>
@@ -22,9 +23,9 @@ export function DisplaySingleReview(review)
 {
     return `
 
-    <h1>Artist Information</h1>
+    <h1>Review Information</h1>
 
-    <div><strong>UserName Name:</strong> ${review.userName}</div>
+    <div><strong>UserName:</strong> ${review.userName}</div>
     <div><strong>Content:</strong> ${review.content}</div>
     <div><strong>Posted Date:</strong> ${review.postDate}</div>
     <div><strong>Edited Date:</strong> ${review.editDate}</div>

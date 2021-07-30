@@ -4,9 +4,10 @@ import {DisplayDiv} from "./var/div";
 
 import {DisplaySingleArtist} from "./display/Artist";
 import {DisplaySingleSong} from "./display/Song";
+import {DisplaySingleReview} from "./display/Review";
 import {DisplaySingleAlbum} from "./display/Album";
 
-import {SetupArtistPage,SetupSongPage,SetupAlbumPage} from "./page_setup";
+import {SetupArtistPage,SetupSongPage,SetupAlbumPage,SetupReviewPage} from "./page_setup";
 
 export function CreateArtist()
 {
@@ -203,12 +204,89 @@ export function UpdateAlbum()
         ArtistId:UpdateAlbumArtist,
         Image:UpdateAlbumImage
     };
-console.log(UpdateAlbumId);
+    console.log(UpdateAlbumId);
     FETCH.Update(URL.AlbumsURL + UpdateAlbumId,RequestBody).then(data => {
         console.log(data);
         FETCH.Generic(URL.AlbumsURL + UpdateAlbumId).then(data => {
             DisplayDiv.innerHTML=DisplaySingleAlbum(data);
             SetupAlbumPage(data);
+        });
+    });
+}
+
+export function DeleteAlbum()
+{
+    let DeleteAlbumId=document.getElementById("DeleteAlbum_Hidden_Id").value;
+    
+    const RequestBody={
+        Id:DeleteAlbumId
+    };
+    
+    FETCH.Delete(URL.AlbumsURL + DeleteAlbumId,RequestBody).then(data => {
+        FETCH.GenericText(URL.AlbumsURL + DeleteAlbumId).then(data => {
+            DisplayDiv.innerHTML=`<p>Album deleted.</p>`;
+        });
+    });
+}
+export function CreateReview()
+{
+    let CreateReviewUserName=document.getElementById("CreateReview_TextField_UserName").value;
+    let CreateReviewContent=document.getElementById("CreateReview_TextField_Content").value;
+    let CreateReviewRating=document.getElementById("CreateReview_TextField_Rating").value;
+
+    let CreateReviewAlbum=document.getElementById("CreateReview_DropDown_Album").value;
+
+    const RequestBody={
+        UserName:CreateReviewUserName,
+        Content:CreateReviewContent,
+        Rating:CreateReviewRating,
+        AlbumId:CreateReviewAlbum
+    };
+    
+    FETCH.Create(URL.ReviewsURL,RequestBody).then(data => {
+        FETCH.Generic(URL.ReviewsURL + data.id).then(data => {
+            DisplayDiv.innerHTML=DisplaySingleReview(data);
+            SetupReviewPage(data);
+        });
+    });
+}
+export function UpdateReview()
+{
+    let UpdateReviewId=document.getElementById("UpdateReview_Hidden_Id").value;
+
+    let UpdateReviewUserName=document.getElementById("UpdateReview_TextField_UserName").value;
+    let UpdateReviewContent=document.getElementById("UpdateReview_TextField_Content").value;
+    let UpdateReviewRating=document.getElementById("UpdateReview_TextField_Rating").value;
+
+    let UpdateReviewAlbum=document.getElementById("UpdateReview_DropDown_Album").value;
+
+    const RequestBody={
+        Id:UpdateReviewId,
+        UserName:UpdateReviewUserName,
+        Content:UpdateReviewContent,
+        Rating:UpdateReviewRating,
+        AlbumId:UpdateReviewAlbum
+    };
+    console.log(UpdateReviewId);
+    FETCH.Update(URL.ReviewsURL + UpdateReviewId,RequestBody).then(data => {
+        console.log(data);
+        FETCH.Generic(URL.ReviewsURL + UpdateReviewId).then(data => {
+            DisplayDiv.innerHTML=DisplaySingleReview(data);
+            SetupReviewPage(data);
+        });
+    });
+}
+export function DeleteReview()
+{
+    let DeleteReviewId=document.getElementById("DeleteReview_Hidden_Id").value;
+    
+    const RequestBody={
+        Id:DeleteReviewId
+    };
+    
+    FETCH.Delete(URL.ReviewsURL + DeleteReviewId,RequestBody).then(data => {
+        FETCH.GenericText(URL.ReviewsURL + DeleteReviewId).then(data => {
+            DisplayDiv.innerHTML=`<p>Review deleted.</p>`;
         });
     });
 }
