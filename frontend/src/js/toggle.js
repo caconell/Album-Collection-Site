@@ -2,7 +2,8 @@ import {ToggleButton} from "./var/toggle";
 
 import {CreateArtist,UpdateArtist,DeleteArtist} from "./crud";
 import {CreateSong,UpdateSong,DeleteSong} from "./crud";
-import {AlbumsURL} from "./var/url";
+import {CreateAlbum} from "./crud";
+import {AlbumsURL,ArtistsURL} from "./var/url";
 
 /*
 function call()
@@ -390,13 +391,85 @@ export function DeleteReviewToggle(review)
 
 export function CreateAlbumToggle()
 {
-    
+    if(ToggleButton[0][3]!==true)
+    {
+        fetch(ArtistsURL).then(response => response.json()).then(data => {
+
+      
+
+        CreateAlbumDiv.innerHTML=`
+            <label>Album Name: </label>
+            <input type="text" id="CreateAlbum_TextField_Name" placeholder="Type here son."/><br/>
+
+            <label>Album Artist: </label>
+            <select id="CreateAlbum_DropDown_Artist">
+            ${data.map(artist => {
+                return `
+                    <option value ="${artist.id}">${artist.name}</option>
+                  
+                `;
+            }).join('')}
+            </select><br/>
+
+            <label>Album Art: </label>
+            <input type="text" id="CreateAlbum_TextField_Image" placeholder="Type here son."/><br/>
+
+            <button id="CreateAlbum_Button_Submit">Create album</button>
+        `;
+        const CreateAlbumSubmitButton=document.getElementById("CreateAlbum_Button_Submit");
+        CreateAlbumSubmitButton.addEventListener("click", CreateAlbum);
+    });
+    ToggleButton[0][1]=true;
+    }
+    else
+    {
+        CreateAlbumDiv.innerHTML=``;
+        ToggleButton[0][3]=false;
+    }
 }
 export function UpdateAlbumToggle(album)
 {
+    ToggleButton[1][3]=false;
+
+    if (ToggleButton[1][3] !== true) {
+
+        fetch(ArtistsURL).then(response => response.json()).then(data => {
+
+        UDAlbumDiv.innerHTML = `
+        <input type = "hidden" id="UpdateAlbum_Hidden_Id" value="${album.id}" />
+        <label>Song Name: </label>
+        <input type="text" id="UpdateAlbum_TextField_Name" value="${album.name}"/><br/>
     
+        <label>Album Artist: </label>
+        <select id="UpdateAlbum_DropDown_Artist">
+     ${data.map(artist => {
+            return `
+            <option value ="${artist.id}">${artist.name}</option>
+          
+        `;
+        }).join('')}
+        </select><br/>
+    
+        <label>Album Art: </label>
+        <input type="text" id="UpdateAlbum_TextField_Image" value="${album.image}"/><br/>
+    
+        <button id="UpdateAlbum_Button_Submit">Update album</button>
+    `;
+        const UpdateAlbumSubmitButton=document.getElementById("UpdateAlbum_Button_Submit");
+        UpdateAlbumSubmitButton.addEventListener("click",UpdateAlbum);
+        });
+    }
+
+    else
+    {
+        UDAlbumDiv.innerHTML=``;
+        ToggleButton[1][3]=false;
+    }
 }
 export function DeleteAlbumToggle(album)
 {
     
 }
+
+
+

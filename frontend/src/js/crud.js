@@ -4,8 +4,9 @@ import {DisplayDiv} from "./var/div";
 
 import {DisplaySingleArtist} from "./display/Artist";
 import {DisplaySingleSong} from "./display/Song";
+import {DisplaySingleAlbum} from "./display/Album";
 
-import {SetupArtistPage,SetupSongPage} from "./page_setup";
+import {SetupArtistPage,SetupSongPage,SetupAlbumPage} from "./page_setup";
 
 export function CreateArtist()
 {
@@ -162,6 +163,52 @@ export function DeleteSong()
     FETCH.Delete(URL.SongsURL + DeleteSongId,RequestBody).then(data => {
         FETCH.GenericText(URL.SongsURL + DeleteSongId).then(data => {
             DisplayDiv.innerHTML=`<p>Song deleted.</p>`;
+        });
+    });
+}
+
+export function CreateAlbum()
+{
+    let CreateAlbumName=document.getElementById("CreateAlbum_TextField_Name").value;
+    let CreateAlbumArtist=document.getElementById("CreateAlbum_DropDown_Artist").value;
+    let CreateAlbumImage=document.getElementById("CreateAlbum_TextField_Image").value;
+
+    const RequestBody={
+        Name:CreateAlbumName,
+        ArtistId:CreateAlbumArtist,
+        Image:CreateAlbumImage
+    };
+    
+    FETCH.Create(URL.AlbumsURL,RequestBody).then(data => {
+        FETCH.Generic(URL.AlbumsURL + data.id).then(data => {
+            DisplayDiv.innerHTML=DisplaySingleAlbum(data);
+            SetupAlbumPage(data);
+        });
+        
+    });
+}
+
+export function UpdateAlbum()
+{
+    let UpdateAlbumId=document.getElementById("UpdateAlbum_Hidden_Id").value;
+
+    let UpdateAlbumName=document.getElementById("UpdateAlbum_TextField_Name").value;
+    let UpdateAlbumArtist=document.getElementById("UpdateAlbum_DropDown_Artist").value;
+    //let UpdateSongArtist=document.getElementById("UpdateSong_TextField_Artist").value;
+    let UpdateAlbumImage=document.getElementById("UpdateAlbum_TextField_Image").value;
+
+    const RequestBody={
+        Id:UpdateAlbumId,
+        Name:UpdateAlbumName,
+        ArtistId:UpdateAlbumArtist,
+        Image:UpdateAlbumImage
+    };
+console.log(UpdateAlbumId);
+    FETCH.Update(URL.AlbumsURL + UpdateAlbumId,RequestBody).then(data => {
+        console.log(data);
+        FETCH.Generic(URL.AlbumsURL + UpdateAlbumId).then(data => {
+            DisplayDiv.innerHTML=DisplaySingleAlbum(data);
+            SetupAlbumPage(data);
         });
     });
 }

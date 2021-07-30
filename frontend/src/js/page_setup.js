@@ -121,7 +121,7 @@ export function SetupAlbumsPage()
     const CreateAlbumButton=document.querySelector("#CreateAlbumButton");
     CreateAlbumButton.addEventListener("click",CreateAlbumToggle);
 }
-function SetupAlbumPage(album_data)
+export function SetupAlbumPage(album_data)
 {
     //reset variable to false everytime.
     ToggleButton[1][3]=false;

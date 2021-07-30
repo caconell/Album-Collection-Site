@@ -15,6 +15,7 @@ export function DisplayAlbumList(albums)
             `+/*<label>Album Name: </label>
             <input type="text" id="AddAlbum_Name_TextField" placeholder="Type here son."/><br/>*/`
             <button id="CreateAlbumButton">Create an album</button>
+            <div id="CreateAlbumDiv"></div>
         </section>
     `;
 }

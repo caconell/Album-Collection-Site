@@ -31,6 +31,7 @@ export function DisplaySingleArtist(artist)
     <div><strong>Artist Name:</strong> ${artist.name}</div>
     <div><strong>Age:</strong> ${artist.age}</div>
     <div><strong>Hometown:</strong> ${artist.hometown}</div>
+    <div><strong>Record Label:</strong> ${artist.recordLabel}</div>
     <div><strong>Biography:</strong> ${artist.biography}</div>
     <div><strong>Albums: </strong>
     
